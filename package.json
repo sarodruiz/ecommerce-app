@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/sarodruiz/ecommerce-app/issues"
   },
-  "homepage": "https://github.com/sarodruiz/ecommerce-app#readme"
+  "homepage": "https://github.com/sarodruiz/ecommerce-app#readme",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
 }
