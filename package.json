@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/dist/server.js",
-    "dev": "ts-node-dev --respawn --transpile-only backend/src/server.ts",
+    "start": "node --env-file=.env backend/dist/server.js",
+    "dev": "ts-node-dev --env-file=.env --respawn --transpile-only backend/src/server.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,8 +22,13 @@
   },
   "homepage": "https://github.com/sarodruiz/ecommerce-app#readme",
   "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }
