@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node backend/dist/server.js",
-    "dev": "ts-node-dev --respawn --transpile-only backend/src/server.ts",
+    "start": "node --env-file=.env backend/dist/server.js",
+    "dev": "ts-node-dev --env-file=.env --respawn --transpile-only backend/src/server.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
