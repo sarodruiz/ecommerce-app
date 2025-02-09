@@ -7,6 +7,7 @@ const app: Express = express();
 const PORT = Number(process.env.PORT) || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || "";
 
+app.use(express.json());
 app.use("/api/users", userRoutes);
 
 mongoose.connect(MONGODB_URI)
