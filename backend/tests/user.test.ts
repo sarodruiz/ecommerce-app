@@ -20,7 +20,7 @@ describe("User Model Test", () => {
         await User.deleteMany({});
     });
 
-    it("should register a user successfully", async function() {
+    it("should register a user successfully", async function () {
         const validUser = new User({
             name: "John Doe",
             email: "johndoe@example.com",
@@ -35,7 +35,7 @@ describe("User Model Test", () => {
         expect(savedUser.updatedAt).toBeDefined();
     });
 
-    it("should fail to register user without a name", async function() {
+    it("should fail to register user without a name", async function () {
         const userWithoutName = new User({
             email: "john@example.com",
             password: "password123"
@@ -52,7 +52,7 @@ describe("User Model Test", () => {
         expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
     });
 
-    it("should fail to register user without an email", async function() {
+    it("should fail to register user without an email", async function () {
         const userWithoutName = new User({
             name: "John",
             password: "password123"
@@ -69,7 +69,7 @@ describe("User Model Test", () => {
         expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
     });
 
-    it("should fail to register user without a password", async function() {
+    it("should fail to register user without a password", async function () {
         const userWithoutName = new User({
             name: "John",
             email: "john@example.com"
@@ -84,5 +84,22 @@ describe("User Model Test", () => {
 
         expect(err).toBeDefined();
         expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+    });
+
+    it('should fail to save user with invalid email format', async () => {
+        const userWithInvalidEmail = new User({
+            name: 'John Doe',
+            email: 'invalid-email',
+            password: 'password123'
+        });
+        let err;
+
+        try {
+            await userWithInvalidEmail.save();
+        } catch (error) {
+            err = error;
+        }
+
+        expect(err).toBeDefined();
     });
 });
