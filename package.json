@@ -7,7 +7,7 @@
     "start": "node --env-file=.env backend/dist/server.js",
     "dev": "ts-node-dev --env-file=.env --respawn --transpile-only backend/src/server.ts",
     "build": "(if exist backend\\dist (rmdir /s /q backend\\dist)) && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
