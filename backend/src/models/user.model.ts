@@ -1,12 +1,14 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, ObjectId } from "mongoose";
 import bcrypt from 'bcryptjs';
 
 export interface User extends Document {
+    _id: ObjectId;
     name: string;
     email: string;
     password: string;
     createdAt: Date;
     updatedAt: Date;
+    comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const userSchema = new Schema<User>(
@@ -47,6 +49,10 @@ userSchema.pre("save", async function (next) {
         next(error);
     }
 });
+
+userSchema.methods.comparePassword = async function (candidatePassword: string) {
+    return await bcrypt.compare(candidatePassword, this.password);
+}
 
 const User = model<User>("User", userSchema);
 
