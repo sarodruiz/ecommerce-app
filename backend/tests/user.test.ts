@@ -68,4 +68,21 @@ describe("User Model Test", () => {
         expect(err).toBeDefined();
         expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
     });
+
+    it("should fail to register user without a password", async function() {
+        const userWithoutName = new User({
+            name: "John",
+            email: "john@example.com"
+        });
+        let err;
+
+        try {
+            await userWithoutName.save();
+        } catch (error) {
+            err = error;
+        }
+
+        expect(err).toBeDefined();
+        expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
+    });
 });
