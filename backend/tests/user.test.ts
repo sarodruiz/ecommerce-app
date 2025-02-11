@@ -118,18 +118,30 @@ describe("User Model Test", () => {
             password: 'password456'
         });
         let err: any;
-        
+
         try {
             await duplicateUser.save();
         } catch (error) {
             err = error;
         }
-        
+
         expect(err).toBeDefined();
         if (err && typeof err === 'object' && 'code' in err) {
             expect(err.code).toBe(11000); // MongoDB duplicate key error code
         } else {
             fail('Expected error with code property');
         }
+    });
+
+    it('should trim name and email fields', async () => {
+        const userWithUntrimmedFields = new User({
+            name: '  John Doe  ',
+            email: '  johndoe@example.com  ',
+            password: 'password123'
+        });
+        const savedUser = await userWithUntrimmedFields.save();
+
+        expect(savedUser.name).toBe('John Doe');
+        expect(savedUser.email).toBe('johndoe@example.com');
     });
 });
