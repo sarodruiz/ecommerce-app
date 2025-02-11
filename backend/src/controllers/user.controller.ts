@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from '../models/user.model';
 
@@ -33,7 +32,7 @@ export async function loginUser(req: Request, res:Response) {
             return;
         }
 
-        const authenticated = await bcrypt.compare(password, user.password);
+        const authenticated = await user.comparePassword(password);
         
         if (!authenticated) {
             res.status(401).json({ message: "Invalid credentials" });
