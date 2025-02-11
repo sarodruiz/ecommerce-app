@@ -49,7 +49,7 @@ export async function loginUser(req: Request, res:Response) {
             maxAge: 60 * 60 * 1000, // 1 hour
         });
         
-        res.status(200).json({ token });
+        res.status(200).json({ token, user: { name: user.name, email: user.email } });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
