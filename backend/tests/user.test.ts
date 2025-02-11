@@ -101,6 +101,7 @@ describe("User Model Test", () => {
         }
 
         expect(err).toBeDefined();
+        expect(err).toBeInstanceOf(mongoose.Error.ValidationError);
     });
 
     it('should fail to save duplicate email', async () => {
