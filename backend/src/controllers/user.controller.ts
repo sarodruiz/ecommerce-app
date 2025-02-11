@@ -42,6 +42,13 @@ export async function loginUser(req: Request, res:Response) {
         
         const token = jwt.sign({ id: user._id }, String(process.env.ACCESS_TOKEN_SECRET), { expiresIn: "1h" });
         
+        res.cookie("access-token", token, {
+            httpOnly: true, // prevents XSS (cross-site scripting)
+            secure: process.env.NODE_ENV === "prod", // use https only in production environment
+            sameSite: "strict", // prevents CSRF (cross-site request forgery)
+            maxAge: 60 * 60 * 1000, // 1 hour
+        });
+        
         res.status(200).json({ token });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
