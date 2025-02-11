@@ -144,4 +144,15 @@ describe("User Model Test", () => {
         expect(savedUser.name).toBe('John Doe');
         expect(savedUser.email).toBe('johndoe@example.com');
     });
+
+    it('should save email in lower case', async () => {
+        const userWithUntrimmedFields = new User({
+            name: 'John Doe',
+            email: 'JOHNDOE@EXAMPLE.COM',
+            password: 'password123'
+        });
+        const savedUser = await userWithUntrimmedFields.save();
+
+        expect(savedUser.email).toBe('johndoe@example.com');
+    });
 });
