@@ -5,7 +5,7 @@ export interface User extends Document {
     name: string;
     email: string;
     password: string;
-    createdAd: Date;
+    createdAt: Date;
     updatedAt: Date;
 }
 
