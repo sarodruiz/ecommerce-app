@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from "jsonwebtoken";
 import User from '../models/user.model';
+import { STATUS_CODES } from 'http';
 
 export async function registerUser(req: Request, res: Response) {
     const { name, email, password } = req.body;
@@ -51,5 +52,19 @@ export async function loginUser(req: Request, res:Response) {
         res.status(200).json({ token, user: { name: user.name, email: user.email } });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
+    }
+}
+
+export async function logoutUser(req: Request, res: Response) {
+    try {
+        res.clearCookie("access-token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "prod",
+            sameSite: "strict"
+        });
+    
+        res.status(200).json({ message: "User logged out successfully" });
+    } catch (error: any) {
+        res.status(500).json({ message: error.message })
     }
 }
