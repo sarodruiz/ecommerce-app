@@ -53,4 +53,30 @@ describe("Auth Controllers", () => {
             });
         });
     });
+
+    describe("logoutUser", () => {
+        let req: Partial<Request>;
+        let res: Partial<Response>;
+
+        beforeEach(() => {
+            req = {};
+            res = {
+                clearCookie: jest.fn(),
+                status: jest.fn().mockReturnThis(),
+                json: jest.fn(),
+            };
+        });
+
+        it("should clear the access-token cookie and return a success message", () => {
+            logoutUser(req as Request, res as Response);
+
+            expect(res.clearCookie).toHaveBeenCalledWith("access-token", {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "strict",
+            });
+            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.json).toHaveBeenCalledWith({ message: "User logged out successfully" });
+        });
+    });
 });
